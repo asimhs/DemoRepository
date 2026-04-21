@@ -1,0 +1,45 @@
+package com.mecaps.springBootDemo.controller;
+
+
+import com.mecaps.springBootDemo.entity.User;
+import com.mecaps.springBootDemo.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+@RestController
+@RequestMapping("/users")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/getById/{id}")
+    public User getById(@PathVariable Long id) {
+        User userById = userService.getUserById(id);
+        return userById;
+    }
+
+
+    @PostMapping("/create")
+    public String createUser(@RequestBody User request) {
+        String user = userService.createUser(request);
+        return user;
+    }
+
+    @GetMapping("/getAllUsers")
+    public List<User> getAll() {
+        return userService.getAllUser();
+    }
+
+    @PutMapping("/update/{id}")
+
+    public String updateUser(@PathVariable Long id, @RequestBody User request) {
+        return userService.updateUser(id, request);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        return userService.deleteUser(id);
+    }
+}
